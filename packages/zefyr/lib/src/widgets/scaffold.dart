@@ -27,6 +27,11 @@ class ZefyrScaffoldState extends State<ZefyrScaffold> {
     });
   }
 
+  //bhkim
+  void settoolbarBuilder(WidgetBuilder builder) {
+    _toolbarBuilder = builder;
+  }
+
   void hideToolbar() {
     if (_toolbarBuilder != null) {
       setState(() {
@@ -43,8 +48,9 @@ class ZefyrScaffoldState extends State<ZefyrScaffold> {
       scaffold: this,
       child: Column(
         children: <Widget>[
-          Expanded(child: widget.child),
+          //bhkim
           toolbar,
+          Expanded(child: widget.child),
         ],
       ),
     );

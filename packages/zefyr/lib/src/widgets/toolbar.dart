@@ -82,8 +82,9 @@ class ZefyrToolbarScaffold extends StatelessWidget {
     final children = <Widget>[
       Expanded(child: body),
     ];
-
-    if (trailing != null) {
+    //bhkim
+    if (toolbar.custommode == "forutona1") {
+    } else if (trailing != null) {
       children.add(trailing);
     } else if (autoImplyTrailing) {
       children.add(toolbar.buildButton(context, ZefyrToolbarAction.close));
@@ -104,10 +105,15 @@ class ZefyrToolbar extends StatefulWidget implements PreferredSizeWidget {
     @required this.editor,
     this.autoHide = true,
     this.delegate,
+    //bhkim
+    this.custommode,
   }) : super(key: key);
 
   final ZefyrToolbarDelegate delegate;
   final ZefyrScope editor;
+
+  //bhkim
+  final String custommode;
 
   /// Whether to automatically hide this toolbar when editor loses focus.
   final bool autoHide;
@@ -119,7 +125,12 @@ class ZefyrToolbar extends StatefulWidget implements PreferredSizeWidget {
   }
 
   @override
-  ZefyrToolbarState createState() => ZefyrToolbarState();
+  ZefyrToolbarState createState() {
+    //bhkim
+    var state = ZefyrToolbarState();
+    state.custommode = custommode;
+    return state;
+  }
 
   @override
   ui.Size get preferredSize => Size.fromHeight(ZefyrToolbar.kToolbarHeight);
@@ -146,6 +157,8 @@ class ZefyrToolbarState extends State<ZefyrToolbar>
   AnimationController _overlayAnimation;
   WidgetBuilder _overlayBuilder;
   Completer<void> _overlayCompleter;
+  //bhkim
+  String custommode;
 
   TextSelection _selection;
 
@@ -250,6 +263,7 @@ class ZefyrToolbarState extends State<ZefyrToolbar>
 
   List<Widget> _buildButtons(BuildContext context) {
     final buttons = <Widget>[
+      if (editor.imageDelegate != null) ImageButton(),
       buildButton(context, ZefyrToolbarAction.bold),
       buildButton(context, ZefyrToolbarAction.italic),
       LinkButton(),
@@ -259,7 +273,6 @@ class ZefyrToolbarState extends State<ZefyrToolbar>
       buildButton(context, ZefyrToolbarAction.quote),
       buildButton(context, ZefyrToolbarAction.code),
       buildButton(context, ZefyrToolbarAction.horizontalRule),
-      if (editor.imageDelegate != null) ImageButton(),
     ];
     return buttons;
   }

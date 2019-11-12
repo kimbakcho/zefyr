@@ -22,6 +22,10 @@ class ZefyrEditor extends StatefulWidget {
     @required this.focusNode,
     this.autofocus = true,
     this.mode = ZefyrMode.edit,
+    //bhkim
+    this.custommode,
+    //bhkim
+    this.ontoolbarshow,
     this.padding = const EdgeInsets.symmetric(horizontal: 16.0),
     this.toolbarDelegate,
     this.imageDelegate,
@@ -49,6 +53,11 @@ class ZefyrEditor extends StatefulWidget {
 
   /// Editing mode of this editor.
   final ZefyrMode mode;
+
+  //bhkim
+  final String custommode;
+  //bhkim
+  final Function ontoolbarshow;
 
   /// Optional delegate for customizing this editor's toolbar.
   final ZefyrToolbarDelegate toolbarDelegate;
@@ -100,6 +109,8 @@ class _ZefyrEditorState extends State<ZefyrEditor> {
       child: ZefyrToolbar(
         key: _toolbarKey,
         editor: _scope,
+        //bhkim
+        custommode: widget.custommode,
         delegate: widget.toolbarDelegate,
       ),
     );
@@ -107,8 +118,17 @@ class _ZefyrEditorState extends State<ZefyrEditor> {
 
   void _handleChange() {
     if (_scope.focusOwner == FocusOwner.none) {
-      hideToolbar();
+      //bhkim
+      if (this.widget.custommode == "forutona1") {
+        _scaffold.settoolbarBuilder(buildToolbar);
+      } else {
+        hideToolbar();
+      }
     } else if (!hasToolbar) {
+      //bhkim
+      if (this.widget.custommode == "forutona1") {
+        this.widget.ontoolbarshow();
+      }
       showToolbar();
     } else {
       // TODO: is there a nicer way to do this?
