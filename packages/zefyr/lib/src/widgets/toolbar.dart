@@ -82,12 +82,14 @@ class ZefyrToolbarScaffold extends StatelessWidget {
     final children = <Widget>[
       Expanded(child: body),
     ];
-    //bhkim
-    if (toolbar.custommode == "forutona1") {
-    } else if (trailing != null) {
+
+    if (trailing != null) {
       children.add(trailing);
     } else if (autoImplyTrailing) {
-      children.add(toolbar.buildButton(context, ZefyrToolbarAction.close));
+      if (toolbar.custommode == 'forutona1') {
+      } else {
+        children.add(toolbar.buildButton(context, ZefyrToolbarAction.close));
+      }
     }
     return Container(
       constraints: constraints,
@@ -229,13 +231,20 @@ class ZefyrToolbarState extends State<ZefyrToolbar>
   Widget build(BuildContext context) {
     final layers = <Widget>[];
 
+    //bhkim
+    Widget trailing;
+    if (custommode == "forutona1") {
+      trailing = null;
+    } else {
+      trailing = buildButton(context, ZefyrToolbarAction.hideKeyboard);
+    }
+
     // Must set unique key for the toolbar to prevent it from reconstructing
     // new state each time we toggle overlay.
     final toolbar = ZefyrToolbarScaffold(
-      key: _toolbarKey,
-      body: ZefyrButtonList(buttons: _buildButtons(context)),
-      trailing: buildButton(context, ZefyrToolbarAction.hideKeyboard),
-    );
+        key: _toolbarKey,
+        body: ZefyrButtonList(buttons: _buildButtons(context)),
+        trailing: trailing);
 
     layers.add(toolbar);
 
