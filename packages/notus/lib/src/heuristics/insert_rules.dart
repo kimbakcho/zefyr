@@ -104,7 +104,7 @@ class ResetLineFormatOnNewLineRule extends InsertRule {
 
 /// Heuristic rule to exit current block when user inserts two consecutive
 /// line-breaks.
-// TODO: update this rule to handle code blocks differently, at least allow 3 consecutive line-breaks before exiting.
+
 class AutoExitBlockRule extends InsertRule {
   const AutoExitBlockRule();
 
@@ -125,7 +125,7 @@ class AutoExitBlockRule extends InsertRule {
     if (isEmptyLine(previous, target) && isInBlock) {
       // We reset block style even if this line is not the last one in it's
       // block which effectively splits the block into two.
-      // TODO: For code blocks this should not split the block but allow inserting as many lines as needed.
+
       var attributes =
           target.attributes != null ? target.attributes : <String, dynamic>{};
       attributes.addAll(NotusAttribute.block.unset.toJson());
@@ -210,7 +210,6 @@ class AutoFormatLinksRule extends InsertRule {
     try {
       final link = Uri.parse(candidate);
       if (!['https', 'http'].contains(link.scheme)) {
-        // TODO: might need a more robust way of validating links here.
         return null;
       }
       final attributes = previous.attributes ?? <String, dynamic>{};

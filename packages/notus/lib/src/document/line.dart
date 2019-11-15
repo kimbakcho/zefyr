@@ -156,7 +156,6 @@ class LineNode extends ContainerNode<LeafNode>
   @override
   LeafNode get defaultChild => TextNode();
 
-  // TODO: should be able to cache length and invalidate on any child-related operation
   @override
   int get length => super.length + 1;
 
@@ -277,7 +276,7 @@ class LineNode extends ContainerNode<LeafNode>
 
       // Move remaining stuff in this line to next line so that all attributes
       // of nextLine are preserved.
-      nextLine.moveChildren(this); // TODO: avoid double move
+      nextLine.moveChildren(this);
       moveChildren(nextLine);
     }
 

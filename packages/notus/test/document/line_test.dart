@@ -176,7 +176,6 @@ void main() {
       root.insert(0, 'Hello world', null);
       root.delete(0, 12);
       expect(root, isEmpty);
-      // TODO: this should really enforce at least one empty line.
     });
 
     test('delete from the middle of a line', () {
@@ -253,7 +252,6 @@ void main() {
     });
 
     test('collectStyle', () {
-      // TODO: need more test cases for collectStyle
       root.insert(
           0, 'Hello world\nThis is my first multiline\n\ndocument.', null);
       root.retain(38, 1, h2Style);

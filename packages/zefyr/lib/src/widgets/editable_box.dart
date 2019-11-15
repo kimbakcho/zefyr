@@ -130,7 +130,7 @@ class RenderEditableProxyBox extends RenderBox
   TextSelection _selection;
   set selection(TextSelection value) {
     if (_selection == value) return;
-    // TODO: check if selection affects this block (also check previous value)
+    
     _selection = value;
     markNeedsPaint();
   }

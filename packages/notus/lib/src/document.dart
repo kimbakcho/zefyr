@@ -118,7 +118,7 @@ class NotusDocument {
   /// Returns an instance of [Delta] actually composed into this document.
   Delta delete(int index, int length) {
     assert(index >= 0 && length > 0);
-    // TODO: need a heuristic rule to ensure last line-break.
+    
     final change = _heuristics.applyDeleteRules(this, index, length);
     if (change.isNotEmpty) {
       // Delete rules are allowed to prevent the edit so it may be empty.
@@ -200,7 +200,7 @@ class NotusDocument {
 
   /// Returns [LineNode] located at specified character [offset].
   LookupResult lookupLine(int offset) {
-    // TODO: prevent user from moving caret after last line-break.
+    
     var result = _root.lookup(offset, inclusive: true);
     if (result.node is LineNode) return result;
     BlockNode block = result.node;
@@ -285,7 +285,7 @@ class NotusDocument {
       offset += op.length;
     }
     // Must remove last line if it's empty and with no styles.
-    // TODO: find a way for DocumentRoot to not create extra line when composing initial delta.
+    
     Node node = _root.last;
     if (node is LineNode &&
         node.parent is! BlockNode &&
