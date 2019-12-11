@@ -23,8 +23,6 @@ class ZefyrEditor extends StatefulWidget {
     this.autofocus = true,
     this.mode = ZefyrMode.edit,
     //bhkim
-    this.custommode,
-    //bhkim
     this.ontoolbarshow,
     this.padding = const EdgeInsets.symmetric(horizontal: 16.0),
     this.toolbarDelegate,
@@ -54,8 +52,6 @@ class ZefyrEditor extends StatefulWidget {
   /// Editing mode of this editor.
   final ZefyrMode mode;
 
-  //bhkim
-  final String custommode;
   //bhkim
   final Function ontoolbarshow;
 
@@ -109,8 +105,6 @@ class _ZefyrEditorState extends State<ZefyrEditor> {
       child: ZefyrToolbar(
         key: _toolbarKey,
         editor: _scope,
-        //bhkim
-        custommode: widget.custommode,
         delegate: widget.toolbarDelegate,
       ),
     );
@@ -119,14 +113,14 @@ class _ZefyrEditorState extends State<ZefyrEditor> {
   void _handleChange() {
     if (_scope.focusOwner == FocusOwner.none) {
       //bhkim
-      if (this.widget.custommode == "forutona1") {
+      if (ZefyrScaffold.of(context).custommode == "forutona1") {
         _scaffold.settoolbarBuilder(buildToolbar);
       } else {
         hideToolbar();
       }
     } else if (!hasToolbar) {
       //bhkim
-      if (this.widget.custommode == "forutona1") {
+      if (ZefyrScaffold.of(context).custommode == "forutona1") {
         this.widget.ontoolbarshow();
       }
       showToolbar();

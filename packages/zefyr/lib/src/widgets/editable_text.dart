@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:notus/notus.dart';
+import 'package:zefyr/src/widgets/scaffold.dart';
 
 import 'code.dart';
 import 'common.dart';
@@ -136,7 +137,14 @@ class _ZefyrEditableTextState extends State<ZefyrEditableText>
   Widget build(BuildContext context) {
     _focusAttachment.reparent();
     super.build(context); // See AutomaticKeepAliveState.
-
+    //bhkim
+    if (ZefyrScaffold.of(context).customscrollmode == "noscroll") {
+      Widget body = ListView(
+          physics: NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          children: _buildChildren(context));
+      return body;
+    }
     Widget body = ListBody(children: _buildChildren(context));
     if (widget.padding != null) {
       body = Padding(padding: widget.padding, child: body);

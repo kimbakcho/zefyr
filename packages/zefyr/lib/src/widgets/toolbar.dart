@@ -6,6 +6,7 @@ import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 import 'package:notus/notus.dart';
+import 'package:zefyr/src/widgets/scaffold.dart';
 
 import 'buttons.dart';
 import 'scope.dart';
@@ -86,7 +87,7 @@ class ZefyrToolbarScaffold extends StatelessWidget {
     if (trailing != null) {
       children.add(trailing);
     } else if (autoImplyTrailing) {
-      if (toolbar.custommode == 'forutona1') {
+      if (ZefyrScaffold.of(context).custommode == 'forutona1') {
       } else {
         children.add(toolbar.buildButton(context, ZefyrToolbarAction.close));
       }
@@ -107,15 +108,10 @@ class ZefyrToolbar extends StatefulWidget implements PreferredSizeWidget {
     @required this.editor,
     this.autoHide = true,
     this.delegate,
-    //bhkim
-    this.custommode,
   }) : super(key: key);
 
   final ZefyrToolbarDelegate delegate;
   final ZefyrScope editor;
-
-  //bhkim
-  final String custommode;
 
   /// Whether to automatically hide this toolbar when editor loses focus.
   final bool autoHide;
@@ -130,7 +126,6 @@ class ZefyrToolbar extends StatefulWidget implements PreferredSizeWidget {
   ZefyrToolbarState createState() {
     //bhkim
     var state = ZefyrToolbarState();
-    state.custommode = custommode;
     return state;
   }
 
@@ -159,8 +154,6 @@ class ZefyrToolbarState extends State<ZefyrToolbar>
   AnimationController _overlayAnimation;
   WidgetBuilder _overlayBuilder;
   Completer<void> _overlayCompleter;
-  //bhkim
-  String custommode;
 
   TextSelection _selection;
 
@@ -233,7 +226,8 @@ class ZefyrToolbarState extends State<ZefyrToolbar>
 
     //bhkim
     Widget trailing;
-    if (custommode == "forutona1") {
+
+    if (ZefyrScaffold.of(context).custommode == "forutona1") {
       trailing = null;
     } else {
       trailing = buildButton(context, ZefyrToolbarAction.hideKeyboard);
